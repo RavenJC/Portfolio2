@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management - Raven John Climaco</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="profile-pic">R</div>
+                <span>Raven John Climaco</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">About</a></li>
+                <li><a href="skills.html">Skills</a></li>
+                <li><a href="hobbies.html">Hobbies</a></li>
+                <li><a href="projects.html" class="active">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- Back Button -->
+            <a href="projects.html" class="back-button">Back to Projects</a>
+
+            <!-- Title -->
+            <div class="calculator-header">
+                <h1>Student Management System 📚</h1>
+                <p>Add, edit, and manage student records with grades and search functionality.</p>
+            </div>
+
+            <!-- Management Container -->
+            <div class="student-management-container">
+                <!-- Add Student Form -->
+                <div class="student-form-card">
+                    <h3>Add New Student</h3>
+                    <form id="student-form" onsubmit="addStudent(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="student-name">Student Name:</label>
+                                <input type="text" id="student-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="student-id">Student ID:</label>
+                                <input type="text" id="student-id" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="student-grade">Grade:</label>
+                                <input type="number" id="student-grade" min="0" max="100" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="student-course">Course:</label>
+                                <input type="text" id="student-course" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Add Student</button>
+                    </form>
+                </div>
+
+                <!-- Search and Filter -->
+                <div class="student-search">
+                    <input type="text" id="search-student" placeholder="Search by name or ID..." onkeyup="searchStudents()">
+                </div>
+
+                <!-- Students List -->
+                <div class="students-list-container">
+                    <div class="students-header">
+                        <h3>Students List</h3>
+                        <span class="student-count" id="student-count">0 students</span>
+                    </div>
+                    <div id="students-list" class="students-list">
+                        <p style="color: var(--text-muted); text-align: center; padding: 2rem;">No students added yet</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Raven John Climaco. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="mailto:raven@example.com">📧</a>
+                    <a href="https://linkedin.com">💼</a>
+                    <a href="https://github.com">🔗</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
