@@ -1,6 +1,11 @@
-// Modern Portfolio JavaScript - Enhanced Version
+/* ====================================================================
+   MODERN PORTFOLIO - JAVASCRIPT
+   Main script file for portfolio website functionality
+   ==================================================================== */
 
-// Global Variables
+/* ====================================================================
+   GLOBAL VARIABLES
+   ==================================================================== */
 let currentNumber = 1;
 let totalNumbers = 0;
 let sum = 0;
@@ -8,6 +13,9 @@ let numbers = [];
 let calculationHistory = [];
 let isCalculating = false;
 
+/* ====================================================================
+   INITIALIZATION
+   ==================================================================== */
 // Initialize when DOM loads
 document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
@@ -24,7 +32,9 @@ function initializeApp() {
     console.log('Modern portfolio initialized successfully!');
 }
 
-// Smooth Scroll for Navigation
+/* ====================================================================
+   SMOOTH SCROLL NAVIGATION
+   ==================================================================== */
 function setupSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -40,7 +50,9 @@ function setupSmoothScroll() {
     });
 }
 
-// Scroll Effects
+/* ====================================================================
+   SCROLL EFFECTS
+   ==================================================================== */
 function setupScrollEffects() {
     window.addEventListener('scroll', function() {
         const header = document.querySelector('header');
@@ -91,7 +103,9 @@ function updateActiveNavigation() {
     });
 }
 
-// Setup animations
+/* ====================================================================
+   ANIMATIONS
+   ==================================================================== */
 function setupAnimations() {
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
@@ -178,7 +192,9 @@ function createRippleEffect(event, button) {
     }, 600);
 }
 
-// Enhanced Calculator Functions
+/* ====================================================================
+   CALCULATOR ENHANCEMENTS
+   ==================================================================== */
 function setupCalculatorEnhancements() {
     const calculatorInputs = document.querySelectorAll('#num1, #num2, #simple-num1, #simple-num2');
     calculatorInputs.forEach(input => {
@@ -216,7 +232,9 @@ function clearResult() {
     });
 }
 
-// Enhanced Basic Calculator Functions
+/* ====================================================================
+   BASIC CALCULATOR FUNCTIONS
+   ==================================================================== */
 function add() {
     performCalculation('add', '+');
 }
@@ -319,7 +337,9 @@ function addToHistory(calculation) {
     }
 }
 
-// Enhanced Average Calculator
+/* ====================================================================
+   AVERAGE CALCULATOR
+   ==================================================================== */
 function startCalculation() {
     if (isCalculating) {
         showNotification('Calculation already in progress', 'warning');
@@ -524,7 +544,9 @@ function resetCalculation() {
     updateDisplays();
 }
 
-// Simple Calculator Functions (for simple.html)
+/* ====================================================================
+   SIMPLE CALCULATOR FUNCTIONS (for simple.html)
+   ==================================================================== */
 function multiplySimple() {
     performSimpleCalculation('multiply', '×');
 }
@@ -571,7 +593,9 @@ function performSimpleCalculation(operation, symbol) {
     }
 }
 
-// Form Enhancements
+/* ====================================================================
+   FORM ENHANCEMENTS
+   ==================================================================== */
 function setupFormEnhancements() {
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
@@ -631,7 +655,9 @@ function handleContactSubmission(e) {
     }, 1000);
 }
 
-// Keyboard Shortcuts
+/* ====================================================================
+   KEYBOARD SHORTCUTS
+   ==================================================================== */
 function setupKeyboardShortcuts() {
     document.addEventListener('keydown', function(e) {
         const activeElement = document.activeElement;
@@ -666,7 +692,9 @@ function setupKeyboardShortcuts() {
     });
 }
 
-// Notification System
+/* ====================================================================
+   NOTIFICATION SYSTEM
+   ==================================================================== */
 function showNotification(message, type = 'info') {
     const existing = document.querySelectorAll('.notification');
     existing.forEach(n => n.remove());
@@ -717,6 +745,9 @@ function showNotification(message, type = 'info') {
     }, 4000);
 }
 
+/* ====================================================================
+   UTILITY FUNCTIONS
+   ==================================================================== */
 // Copy result functionality
 function copyResult() {
     const output = document.getElementById('output');
@@ -729,6 +760,9 @@ function copyResult() {
     }
 }
 
+/* ====================================================================
+   WINDOW EVENT HANDLERS
+   ==================================================================== */
 // Window resize handler
 window.addEventListener('resize', function() {
     if (window.innerWidth < 768) {
@@ -774,6 +808,9 @@ if (window.history.replaceState) {
     window.history.replaceState(null, null, window.location.href);
 }
 
+/* ====================================================================
+   ENHANCED VISUAL EFFECTS
+   ==================================================================== */
 // Add loading state to buttons
 document.querySelectorAll('.btn').forEach(btn => {
     btn.addEventListener('click', function() {
@@ -877,6 +914,9 @@ document.querySelectorAll('.card, .skill-card, .project-card, .contact-card').fo
     });
 });
 
+/* ====================================================================
+   SKILL BAR ANIMATIONS
+   ==================================================================== */
 // Enhanced skill progress animation
 function animateSkillBars() {
     const skillBars = document.querySelectorAll('.skill-progress');
@@ -901,6 +941,9 @@ function animateSkillBars() {
 // Initialize skill bar animations
 animateSkillBars();
 
+/* ====================================================================
+   COUNTER ANIMATIONS
+   ==================================================================== */
 // Add counter animation for statistics
 function animateCounter(element, target, duration = 2000) {
     if (!element) return;
@@ -934,7 +977,10 @@ document.querySelectorAll('.stat-number').forEach(stat => {
     observer.observe(stat);
 });
 
-// Add theme toggle functionality (optional)
+/* ====================================================================
+   THEME TOGGLE (Optional)
+   ==================================================================== */
+// Add theme toggle functionality
 function toggleTheme() {
     document.body.classList.toggle('light-theme');
     const theme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
@@ -947,7 +993,10 @@ if (savedTheme === 'light') {
     document.body.classList.add('light-theme');
 }
 
-// Performance optimization: Lazy load images
+/* ====================================================================
+   PERFORMANCE OPTIMIZATION
+   ==================================================================== */
+// Lazy load images
 function lazyLoadImages() {
     const images = document.querySelectorAll('img[data-src]');
     
@@ -976,12 +1025,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 100);
 });
 
-// Log initialization complete
-console.log('✨ Modern Portfolio JavaScript loaded successfully!');
-console.log('🎨 Theme: Enhanced Dark with Vibrant Accents');
-console.log('🚀 All features initialized and ready!');
-
-// BMI CALCULATOR
+/* ====================================================================
+   BMI CALCULATOR
+   ==================================================================== */
 function calculateBMI() {
     const height = parseFloat(document.getElementById('bmi-height')?.value);
     const weight = parseFloat(document.getElementById('bmi-weight')?.value);
@@ -1039,7 +1085,9 @@ function resetBMI() {
     showNotification('Form reset', 'info');
 }
 
-// CURRENCY CONVERTER
+/* ====================================================================
+   CURRENCY CONVERTER
+   ==================================================================== */
 const exchangeRates = {
     USD: 1,
     EUR: 0.92,
@@ -1087,7 +1135,9 @@ function swapCurrencies() {
     convertCurrency();
 }
 
-// JOKE GENERATOR
+/* ====================================================================
+   JOKE GENERATOR
+   ==================================================================== */
 let jokeCount = 0;
 const jokes = [
     "Why don't scientists trust atoms? Because they make up everything!",
@@ -1143,20 +1193,22 @@ function copyJoke() {
     }
 }
 
-// PHOTO GALLERY
+/* ====================================================================
+   PHOTO GALLERY
+   ==================================================================== */
 const galleryImages = [
-    { id: 1, category: 'nature', title: 'Mountain Sunset', color: '#FF6B6B' },
-    { id: 2, category: 'nature', title: 'Forest Path', color: '#4ECDC4' },
-    { id: 3, category: 'tech', title: 'Coding Setup', color: '#45B7D1' },
-    { id: 4, category: 'tech', title: 'Circuit Board', color: '#FFA07A' },
-    { id: 5, category: 'abstract', title: 'Color Waves', color: '#98D8C8' },
-    { id: 6, category: 'abstract', title: 'Geometric Art', color: '#F7B731' },
-    { id: 7, category: 'nature', title: 'Ocean View', color: '#5F27CD' },
-    { id: 8, category: 'tech', title: 'Data Visualization', color: '#00D2D3' },
-    { id: 9, category: 'abstract', title: 'Light Patterns', color: '#FF9FF3' },
-    { id: 10, category: 'nature', title: 'Desert Landscape', color: '#54A0FF' },
-    { id: 11, category: 'tech', title: 'Futuristic Design', color: '#48DBFB' },
-    { id: 12, category: 'abstract', title: 'Digital Art', color: '#FF6348' }
+    { id: 1, category: 'nature', title: 'Mountain Sunset', src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800' },
+    { id: 2, category: 'nature', title: 'Forest Path', src: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800' },
+    { id: 3, category: 'tech', title: 'Coding Setup', src: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800' },
+    { id: 4, category: 'tech', title: 'Circuit Board', src: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800' },
+    { id: 5, category: 'abstract', title: 'Color Waves', src: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1?w=800' },
+    { id: 6, category: 'abstract', title: 'Geometric Art', src: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=800' },
+    { id: 7, category: 'nature', title: 'Ocean View', src: 'https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=800' },
+    { id: 8, category: 'tech', title: 'Data Visualization', src: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800' },
+    { id: 9, category: 'abstract', title: 'Light Patterns', src: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=800' },
+    { id: 10, category: 'nature', title: 'Desert Landscape', src: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=800' },
+    { id: 11, category: 'tech', title: 'Futuristic Design', src: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800' },
+    { id: 12, category: 'abstract', title: 'Digital Art', src: 'https://images.unsplash.com/photo-1567095761054-7a02e69e5c43?w=800' }
 ];
 
 let currentImageIndex = 0;
@@ -1171,9 +1223,7 @@ function initializeGallery() {
         item.className = 'gallery-item';
         item.setAttribute('data-category', img.category);
         item.innerHTML = `
-            <div style="width: 100%; height: 100%; background: linear-gradient(135deg, ${img.color}, ${img.color}88); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: 700;">
-                ${img.title}
-            </div>
+            <img src="${img.src}" alt="${img.title}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
             <div class="gallery-overlay">
                 <h4>${img.title}</h4>
                 <p>${img.category}</p>
@@ -1209,15 +1259,12 @@ function openLightbox(index) {
     const caption = document.getElementById('lightbox-caption');
     const image = galleryImages[index];
     
-    img.style.background = `linear-gradient(135deg, ${image.color}, ${image.color}88)`;
-    img.style.height = '60vh';
-    img.style.display = 'flex';
-    img.style.alignItems = 'center';
-    img.style.justifyContent = 'center';
-    img.style.color = 'white';
-    img.style.fontSize = '3rem';
-    img.style.fontWeight = '700';
-    img.innerHTML = image.title;
+    img.src = image.src;
+    img.alt = image.title;
+    img.style.background = 'none';
+    img.style.height = 'auto';
+    img.style.display = 'block';
+    img.innerHTML = '';
     
     caption.textContent = `${image.title} - ${image.category}`;
     lightbox.style.display = 'flex';
@@ -1237,29 +1284,106 @@ function navigateLightbox(direction) {
     openLightbox(currentImageIndex);
 }
 
-// Close lightbox on escape key
+// Close lightbox on escape key or background click
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeLightbox();
     if (e.key === 'ArrowLeft') navigateLightbox(-1);
     if (e.key === 'ArrowRight') navigateLightbox(1);
 });
 
-// SPIN THE WHEEL
-const wheelPrizes = [
-    '🎁 Gift Card $50',
-    '🎮 Gaming Mouse',
-    '📱 Phone Case',
-    '🎧 Headphones',
-    '💻 Laptop Bag',
-    '⌚ Smart Watch',
-    '🎯 Try Again',
-    '🏆 Grand Prize'
+document.addEventListener('click', function(e) {
+    const lightbox = document.getElementById('lightbox');
+    if (e.target === lightbox) {
+        closeLightbox();
+    }
+});
+
+// Initialize gallery when page loads
+if (document.getElementById('photo-gallery')) {
+    document.addEventListener('DOMContentLoaded', initializeGallery);
+}
+
+/* ====================================================================
+   SPIN THE WHEEL
+   ==================================================================== */
+let wheelPrizes = [];
+
+const wheelColors = [
+    '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', 
+    '#98D8C8', '#F7B731', '#5F27CD', '#00D2D3',
+    '#FF9FF3', '#54A0FF', '#48DBFB', '#10b981'
 ];
 
-const wheelColors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7B731', '#5F27CD', '#00D2D3'];
 let isSpinning = false;
 let spinHistory = [];
 
+// Add a new prize
+function addPrize(event) {
+    event.preventDefault();
+    
+    const input = document.getElementById('prize-input');
+    if (!input) {
+        console.error('Prize input not found');
+        return;
+    }
+    
+    const prizeText = input.value.trim();
+    
+    if (!prizeText) {
+        showNotification('Please enter a prize name', 'error');
+        return;
+    }
+    
+    if (wheelPrizes.length >= 12) {
+        showNotification('Maximum 12 prizes allowed', 'error');
+        return;
+    }
+    
+    if (wheelPrizes.includes(prizeText)) {
+        showNotification('This prize already exists', 'error');
+        return;
+    }
+    
+    wheelPrizes.push(prizeText);
+    input.value = '';
+    input.focus();
+    updatePrizesList();
+    initializeWheel();
+    showNotification('Prize added successfully!', 'success');
+}
+
+// Remove a prize
+function removePrize(index) {
+    const removedPrize = wheelPrizes[index];
+    wheelPrizes.splice(index, 1);
+    updatePrizesList();
+    initializeWheel();
+    showNotification(`Removed: ${removedPrize}`, 'info');
+}
+
+// Update the prizes list display
+function updatePrizesList() {
+    const container = document.getElementById('prize-chips');
+    const countSpan = document.getElementById('prize-count');
+    
+    if (!container || !countSpan) return;
+    
+    countSpan.textContent = wheelPrizes.length;
+    
+    if (wheelPrizes.length === 0) {
+        container.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 1rem;">No prizes added yet. Add prizes to start spinning!</p>';
+        return;
+    }
+    
+    container.innerHTML = wheelPrizes.map((prize, index) => `
+        <div class="prize-chip" onclick="removePrize(${index})" title="Click to remove">
+            <span>${prize}</span>
+            <span class="remove-icon">×</span>
+        </div>
+    `).join('');
+}
+
+// Initialize the wheel
 function initializeWheel() {
     const canvas = document.getElementById('wheel-canvas');
     if (!canvas) return;
@@ -1272,33 +1396,69 @@ function initializeWheel() {
     drawWheel(ctx, centerX, centerY, radius, 0);
 }
 
+// Draw the wheel
 function drawWheel(ctx, centerX, centerY, radius, rotation) {
-    const sliceAngle = (2 * Math.PI) / wheelPrizes.length;
-    
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     
+    if (wheelPrizes.length === 0) {
+        ctx.fillStyle = '#64748b';
+        ctx.font = 'bold 16px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('Add prizes above', centerX, centerY - 10);
+        ctx.fillText('to start spinning!', centerX, centerY + 15);
+        return;
+    }
+    
+    const sliceAngle = (2 * Math.PI) / wheelPrizes.length;
+    
+    // Draw wheel slices
     for (let i = 0; i < wheelPrizes.length; i++) {
         const angle = rotation + i * sliceAngle;
         
+        // Draw slice
         ctx.beginPath();
         ctx.arc(centerX, centerY, radius, angle, angle + sliceAngle);
         ctx.lineTo(centerX, centerY);
-        ctx.fillStyle = wheelColors[i];
+        ctx.fillStyle = wheelColors[i % wheelColors.length];
         ctx.fill();
         ctx.strokeStyle = '#0a0e27';
         ctx.lineWidth = 3;
         ctx.stroke();
         
+        // Draw text
         ctx.save();
         ctx.translate(centerX, centerY);
         ctx.rotate(angle + sliceAngle / 2);
         ctx.textAlign = 'center';
         ctx.fillStyle = '#fff';
         ctx.font = 'bold 14px Arial';
-        ctx.fillText(wheelPrizes[i], radius * 0.65, 5);
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+        ctx.shadowBlur = 3;
+        
+        // Wrap text if too long
+        const text = wheelPrizes[i];
+        const maxWidth = radius * 0.6;
+        const words = text.split(' ');
+        let line = '';
+        let y = 5;
+        
+        for (let word of words) {
+            const testLine = line + word + ' ';
+            const metrics = ctx.measureText(testLine);
+            if (metrics.width > maxWidth && line !== '') {
+                ctx.fillText(line.trim(), radius * 0.65, y);
+                line = word + ' ';
+                y += 16;
+            } else {
+                line = testLine;
+            }
+        }
+        ctx.fillText(line.trim(), radius * 0.65, y);
+        
         ctx.restore();
     }
     
+    // Draw center circle
     ctx.beginPath();
     ctx.arc(centerX, centerY, 30, 0, 2 * Math.PI);
     ctx.fillStyle = '#0a0e27';
@@ -1308,13 +1468,21 @@ function drawWheel(ctx, centerX, centerY, radius, rotation) {
     ctx.stroke();
 }
 
+// Spin the wheel
 function spinWheel() {
     if (isSpinning) return;
+    
+    if (wheelPrizes.length === 0) {
+        showNotification('Add at least one prize to spin!', 'error');
+        return;
+    }
     
     const canvas = document.getElementById('wheel-canvas');
     const ctx = canvas.getContext('2d');
     const button = document.getElementById('spin-button');
     const resultDiv = document.getElementById('wheel-result');
+    
+    if (!canvas || !button || !resultDiv) return;
     
     isSpinning = true;
     button.disabled = true;
@@ -1326,13 +1494,15 @@ function spinWheel() {
     const radius = 180;
     
     const spinTime = 3000;
-    const spinRotation = Math.random() * 360 + 1800;
+    const spinRotation = Math.random() * 360 + 1800; // 5-6 full rotations
     let currentRotation = 0;
     const startTime = Date.now();
     
     function animate() {
         const elapsed = Date.now() - startTime;
         const progress = Math.min(elapsed / spinTime, 1);
+        
+        // Ease out cubic
         const easeOut = 1 - Math.pow(1 - progress, 3);
         
         currentRotation = (spinRotation * easeOut * Math.PI) / 180;
@@ -1341,35 +1511,56 @@ function spinWheel() {
         if (progress < 1) {
             requestAnimationFrame(animate);
         } else {
+            // Calculate winning prize (adjusted for top pointer)
             const sliceAngle = (2 * Math.PI) / wheelPrizes.length;
             const normalizedRotation = currentRotation % (2 * Math.PI);
-            const prizeIndex = Math.floor((2 * Math.PI - normalizedRotation + Math.PI / 2) / sliceAngle) % wheelPrizes.length;
+            // Pointer is at top (90 degrees = PI/2), so we adjust the calculation
+            const adjustedRotation = (normalizedRotation + Math.PI / 2) % (2 * Math.PI);
+            const prizeIndex = Math.floor((2 * Math.PI - adjustedRotation) / sliceAngle) % wheelPrizes.length;
             
-            showWheelResult(wheelPrizes[prizeIndex]);
+            const wonPrize = wheelPrizes[prizeIndex];
+            showWheelResult(wonPrize);
+            
+            // Remove the won prize from the array
+            wheelPrizes.splice(prizeIndex, 1);
+            updatePrizesList();
+            initializeWheel();
+            
             isSpinning = false;
             button.disabled = false;
-            button.textContent = 'SPIN AGAIN';
+            button.textContent = wheelPrizes.length > 0 ? 'SPIN AGAIN' : 'ADD PRIZES TO SPIN';
         }
     }
     
     animate();
 }
 
+// Show wheel result
 function showWheelResult(prize) {
     const resultDiv = document.getElementById('wheel-result');
     const prizeDiv = document.getElementById('result-prize');
+    
+    if (!resultDiv || !prizeDiv) return;
     
     prizeDiv.textContent = prize;
     resultDiv.style.display = 'block';
     
     addSpinHistory(prize);
-    showNotification(`You won: ${prize}!`, 'success');
+    showNotification(`You won: ${prize}! 🎉`, 'success');
     
-    if (prize.includes('Grand Prize')) {
-        setTimeout(() => showCelebration(), 300);
+    // Celebration effect for special prizes
+    if (prize.toLowerCase().includes('grand') || 
+        prize.toLowerCase().includes('jackpot') ||
+        prize.toLowerCase().includes('$100')) {
+        setTimeout(() => {
+            if (typeof showCelebration === 'function') {
+                showCelebration();
+            }
+        }, 300);
     }
 }
 
+// Add to spin history
 function addSpinHistory(prize) {
     spinHistory.unshift({
         prize: prize,
@@ -1379,15 +1570,32 @@ function addSpinHistory(prize) {
     if (spinHistory.length > 5) spinHistory = spinHistory.slice(0, 5);
     
     const historyDiv = document.getElementById('spin-history');
+    if (!historyDiv) return;
+    
+    if (spinHistory.length === 0) {
+        historyDiv.innerHTML = '<p style="color: var(--text-muted); text-align: center;">No spins yet</p>';
+        return;
+    }
+    
     historyDiv.innerHTML = spinHistory.map(item => `
         <div class="history-item">
             <span>${item.prize}</span>
-            <span style="color: var(--text-muted); font-size: 0.85rem;">${item.time}</span>
+            <span>${item.time}</span>
         </div>
     `).join('');
 }
 
-// STOPWATCH
+// Initialize wheel when page loads
+if (document.getElementById('wheel-canvas')) {
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeWheel();
+        updatePrizesList();
+    });
+}
+
+/* ====================================================================
+   STOPWATCH
+   ==================================================================== */
 let stopwatchInterval;
 let stopwatchTime = 0;
 let isRunning = false;
@@ -1485,20 +1693,27 @@ function resetStopwatch() {
     showNotification('Stopwatch reset', 'info');
 }
 
-// STUDENT MANAGEMENT SYSTEM
+/* ====================================================================
+   STUDENT MANAGEMENT SYSTEM
+   ==================================================================== */
 let students = [];
 let editingStudentId = null;
 
 function addStudent(event) {
     event.preventDefault();
     
-    const name = document.getElementById('student-name').value.trim();
     const id = document.getElementById('student-id').value.trim();
-    const grade = parseFloat(document.getElementById('student-grade').value);
+    const fname = document.getElementById('student-fname').value.trim();
+    const lname = document.getElementById('student-lname').value.trim();
+    const mname = document.getElementById('student-mname').value.trim().toUpperCase();
+    const gender = document.getElementById('student-gender').value;
+    const age = parseInt(document.getElementById('student-age').value);
+    const contact = document.getElementById('student-contact').value.trim();
+    const email = document.getElementById('student-email').value.trim();
     const course = document.getElementById('student-course').value.trim();
     
-    if (!name || !id || isNaN(grade) || !course) {
-        showNotification('Please fill all fields correctly', 'error');
+    if (!id || !fname || !lname || !gender || !age || !contact || !email || !course) {
+        showNotification('Please fill all required fields correctly', 'error');
         return;
     }
     
@@ -1509,85 +1724,99 @@ function addStudent(event) {
     
     if (editingStudentId) {
         const index = students.findIndex(s => s.uniqueId === editingStudentId);
-        students[index] = { ...students[index], name, id, grade, course };
+        students[index] = { 
+            ...students[index], 
+            id, fname, lname, mname, gender, age, contact, email, course,
+            dateModified: new Date().toLocaleDateString()
+        };
         editingStudentId = null;
         showNotification('Student updated successfully', 'success');
     } else {
         students.push({
             uniqueId: Date.now(),
-            name,
-            id,
-            grade,
-            course,
+            id, fname, lname, mname, gender, age, contact, email, course,
             dateAdded: new Date().toLocaleDateString()
         });
         showNotification('Student added successfully', 'success');
     }
     
     document.getElementById('student-form').reset();
+    document.getElementById('form-title').textContent = 'Add New Student';
+    document.getElementById('submit-btn').textContent = 'Add Student';
+    document.getElementById('cancel-btn').style.display = 'none';
     displayStudents();
 }
 
 function displayStudents(filteredStudents = null) {
-    const listDiv = document.getElementById('students-list');
+    const tbody = document.getElementById('students-list');
     const countSpan = document.getElementById('student-count');
     const studentsToDisplay = filteredStudents || students;
     
     countSpan.textContent = `${studentsToDisplay.length} student${studentsToDisplay.length !== 1 ? 's' : ''}`;
     
     if (studentsToDisplay.length === 0) {
-        listDiv.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 2rem;">No students found</p>';
+        tbody.innerHTML = '<tr><td colspan="10" style="text-align: center; color: var(--text-muted); padding: 3rem;">No students found</td></tr>';
         return;
     }
     
-    listDiv.innerHTML = studentsToDisplay.map(student => {
-        let gradeClass = '';
-        if (student.grade >= 90) gradeClass = 'excellent';
-        else if (student.grade >= 80) gradeClass = 'good';
-        else if (student.grade >= 70) gradeClass = 'average';
-        else gradeClass = 'poor';
-        
-        return `
-            <div class="student-card">
-                <div class="student-info">
-                    <div class="student-name">${student.name}</div>
-                    <div class="student-details">
-                        <span class="student-detail">🆔 ${student.id}</span>
-                        <span class="student-detail">📚 ${student.course}</span>
-                        <span class="student-detail">📅 ${student.dateAdded}</span>
-                    </div>
-                </div>
-                <div class="student-grade-badge ${gradeClass}">
-                    ${student.grade}%
-                </div>
-                <div class="student-actions">
+    tbody.innerHTML = studentsToDisplay.map(student => `
+        <tr class="student-row">
+            <td><strong>${student.id}</strong></td>
+            <td>${student.fname}</td>
+            <td>${student.lname}</td>
+            <td>${student.mname || '-'}</td>
+            <td>${student.gender}</td>
+            <td>${student.age}</td>
+            <td>${student.contact}</td>
+            <td>${student.email}</td>
+            <td><span class="course-badge">${student.course}</span></td>
+            <td>
+                <div class="table-actions">
                     <button class="btn-icon btn-edit" onclick="editStudent(${student.uniqueId})" title="Edit">✏️</button>
                     <button class="btn-icon btn-delete" onclick="deleteStudent(${student.uniqueId})" title="Delete">🗑️</button>
                 </div>
-            </div>
-        `;
-    }).join('');
+            </td>
+        </tr>
+    `).join('');
 }
 
 function editStudent(uniqueId) {
     const student = students.find(s => s.uniqueId === uniqueId);
     if (!student) return;
     
-    document.getElementById('student-name').value = student.name;
     document.getElementById('student-id').value = student.id;
-    document.getElementById('student-grade').value = student.grade;
+    document.getElementById('student-fname').value = student.fname;
+    document.getElementById('student-lname').value = student.lname;
+    document.getElementById('student-mname').value = student.mname || '';
+    document.getElementById('student-gender').value = student.gender;
+    document.getElementById('student-age').value = student.age;
+    document.getElementById('student-contact').value = student.contact;
+    document.getElementById('student-email').value = student.email;
     document.getElementById('student-course').value = student.course;
     
     editingStudentId = uniqueId;
-    document.querySelector('.student-form-card h3').textContent = 'Edit Student';
-    document.querySelector('#student-form button[type="submit"]').textContent = 'Update Student';
+    document.getElementById('form-title').textContent = 'Edit Student';
+    document.getElementById('submit-btn').textContent = 'Update Student';
+    document.getElementById('cancel-btn').style.display = 'inline-block';
     
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    showNotification('Editing student', 'info');
+    showNotification('Editing student record', 'info');
+}
+
+function cancelEdit() {
+    editingStudentId = null;
+    document.getElementById('student-form').reset();
+    document.getElementById('form-title').textContent = 'Add New Student';
+    document.getElementById('submit-btn').textContent = 'Add Student';
+    document.getElementById('cancel-btn').style.display = 'none';
+    showNotification('Edit cancelled', 'info');
 }
 
 function deleteStudent(uniqueId) {
-    if (!confirm('Are you sure you want to delete this student?')) return;
+    const student = students.find(s => s.uniqueId === uniqueId);
+    if (!student) return;
+    
+    if (!confirm(`Are you sure you want to delete ${student.fname} ${student.lname}?`)) return;
     
     students = students.filter(s => s.uniqueId !== uniqueId);
     displayStudents();
@@ -1603,15 +1832,19 @@ function searchStudents() {
     }
     
     const filtered = students.filter(s => 
-        s.name.toLowerCase().includes(query) || 
-        s.id.toLowerCase().includes(query) ||
+        s.id.toLowerCase().includes(query) || 
+        s.fname.toLowerCase().includes(query) ||
+        s.lname.toLowerCase().includes(query) ||
+        s.email.toLowerCase().includes(query) ||
         s.course.toLowerCase().includes(query)
     );
     
     displayStudents(filtered);
 }
 
-// TO-DO LIST
+/* ====================================================================
+   TO-DO LIST
+   ==================================================================== */
 let todos = [];
 let currentFilter = 'all';
 
@@ -1723,7 +1956,9 @@ function clearCompleted() {
     showNotification('Completed tasks cleared', 'success');
 }
 
-// INITIALIZATION
+/* ====================================================================
+   PAGE-SPECIFIC INITIALIZATION
+   ==================================================================== */
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize gallery if on gallery page
     if (document.getElementById('photo-gallery')) {
@@ -1736,7 +1971,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Initialize student list if on student management page
-    if (document.getElementById('students-list')) {
+    if (document.getElementById('student-table')) {
         displayStudents();
     }
     
@@ -1751,3 +1986,10 @@ document.addEventListener('DOMContentLoaded', function() {
         updateStopwatchDisplay();
     }
 });
+
+/* ====================================================================
+   CONSOLE LOG - INITIALIZATION COMPLETE
+   ==================================================================== */
+console.log('✨ Modern Portfolio JavaScript loaded successfully!');
+console.log('🎨 Theme: Enhanced Dark with Vibrant Accents');
+console.log('🚀 All features initialized and ready!');
