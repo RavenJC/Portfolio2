@@ -32,33 +32,49 @@
             <!-- Calculator Title -->
             <div class="calculator-header">
                 <h1>Basic Calculator</h1>
-                <p>Perform all four basic arithmetic operations: addition, subtraction, multiplication, and division.</p>
+                <p>Perform all four basic arithmetic operations with a professional calculator interface.</p>
             </div>
 
             <!-- Calculator Container -->
-            <div class="calculator-container">
-                <div class="calculator-form">
-                    <div class="form-group">
-                        <label for="num1">First Number:</label>
-                        <input type="number" id="num1" placeholder="Enter first number">
+            <div class="calculator-wrapper">
+                <div class="modern-calculator">
+                    <!-- Display -->
+                    <div class="calculator-display-modern">
+                        <div class="calc-expression" id="calc-expression"></div>
+                        <div class="calc-result-main" id="calc-result-main">0</div>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="num2">Second Number:</label>
-                        <input type="number" id="num2" placeholder="Enter second number">
-                    </div>
-                    
-                    <div class="calculator-buttons">
-                        <button onclick="add()" class="btn btn-primary">+ Add</button>
-                        <button onclick="subtract()" class="btn btn-primary">- Subtract</button>
-                        <button onclick="multiply()" class="btn btn-primary">× Multiply</button>
-                        <button onclick="divide()" class="btn btn-primary">÷ Divide</button>
-                    </div>
-                    
-                    <div id="result" class="calculator-result">
-                        <h3>Result:</h3>
-                        <div id="output" class="result-output">0</div>
-                        <div id="operation" class="operation-display"></div>
+                    <!-- Calculator Buttons Grid -->
+                    <div class="calculator-buttons-grid">
+                        <!-- Row 1: AC, Backspace, %, ÷ -->
+                        <button class="calc-btn-modern calc-function" onclick="clearCalculator()">AC</button>
+                        <button class="calc-btn-modern calc-function" onclick="backspace()">⌫</button>
+                        <button class="calc-btn-modern calc-function" onclick="percentage()">%</button>
+                        <button class="calc-btn-modern calc-operator" onclick="selectOperator('÷')">÷</button>
+                        
+                        <!-- Row 2: 7, 8, 9, × -->
+                        <button class="calc-btn-modern calc-number" onclick="inputNumber('7')">7</button>
+                        <button class="calc-btn-modern calc-number" onclick="inputNumber('8')">8</button>
+                        <button class="calc-btn-modern calc-number" onclick="inputNumber('9')">9</button>
+                        <button class="calc-btn-modern calc-operator" onclick="selectOperator('×')">×</button>
+                        
+                        <!-- Row 3: 4, 5, 6, - -->
+                        <button class="calc-btn-modern calc-number" onclick="inputNumber('4')">4</button>
+                        <button class="calc-btn-modern calc-number" onclick="inputNumber('5')">5</button>
+                        <button class="calc-btn-modern calc-number" onclick="inputNumber('6')">6</button>
+                        <button class="calc-btn-modern calc-operator" onclick="selectOperator('-')">-</button>
+                        
+                        <!-- Row 4: 1, 2, 3, + -->
+                        <button class="calc-btn-modern calc-number" onclick="inputNumber('1')">1</button>
+                        <button class="calc-btn-modern calc-number" onclick="inputNumber('2')">2</button>
+                        <button class="calc-btn-modern calc-number" onclick="inputNumber('3')">3</button>
+                        <button class="calc-btn-modern calc-operator" onclick="selectOperator('+')">+</button>
+                        
+                        <!-- Row 5: 00, 0, ., = -->
+                        <button class="calc-btn-modern calc-number" onclick="inputNumber('00')">00</button>
+                        <button class="calc-btn-modern calc-number" onclick="inputNumber('0')">0</button>
+                        <button class="calc-btn-modern calc-number" onclick="inputNumber('.')">.</button>
+                        <button class="calc-btn-modern calc-equals" onclick="compute()">=</button>
                     </div>
                 </div>
             </div>
