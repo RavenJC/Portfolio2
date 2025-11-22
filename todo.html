@@ -42,11 +42,6 @@
                     <form id="todo-form" onsubmit="addTodo(event)">
                         <div class="todo-input-group">
                             <input type="text" id="todo-input" placeholder="What needs to be done?" required>
-                            <select id="todo-priority" class="todo-priority-select">
-                                <option value="low">Low Priority</option>
-                                <option value="medium" selected>Medium Priority</option>
-                                <option value="high">High Priority</option>
-                            </select>
                             <button type="submit" class="btn btn-primary">Add Task</button>
                         </div>
                     </form>
@@ -56,7 +51,7 @@
                 <div class="todo-filters">
                     <button class="filter-tab active" onclick="filterTodos('all')" data-filter="all">All</button>
                     <button class="filter-tab" onclick="filterTodos('active')" data-filter="active">Active</button>
-                    <button class="filter-tab" onclick="filterTodos('completed')" data-filter="completed">Completed</button>
+                    <button class="filter-tab" onclick="filterTodos('archived')" data-filter="archived">Archived</button>
                 </div>
 
                 <!-- Tasks List -->
@@ -75,14 +70,9 @@
                         <span class="stat-label">Active</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-value" id="completed-tasks">0</span>
-                        <span class="stat-label">Completed</span>
+                        <span class="stat-value" id="archived-tasks">0</span>
+                        <span class="stat-label">Archived</span>
                     </div>
-                </div>
-
-                <!-- Clear Completed -->
-                <div class="todo-actions">
-                    <button onclick="clearCompleted()" class="btn btn-outline">Clear Completed</button>
                 </div>
             </div>
         </div>
