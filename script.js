@@ -1,11 +1,3 @@
-/* ====================================================================
-   MODERN PORTFOLIO - JAVASCRIPT
-   Main script file for portfolio website functionality
-   ==================================================================== */
-
-/* ====================================================================
-   GLOBAL VARIABLES
-   ==================================================================== */
 let currentNumber = 1;
 let totalNumbers = 0;
 let sum = 0;
@@ -193,7 +185,7 @@ function createRippleEffect(event, button) {
 }
 
 /* ====================================================================
-   CALCULATOR ENHANCEMENTS
+   CALCULATOR 
    ==================================================================== */
 function setupCalculatorEnhancements() {
     const calculatorInputs = document.querySelectorAll('#num1, #num2, #simple-num1, #simple-num2');
@@ -746,21 +738,6 @@ function showNotification(message, type = 'info') {
 }
 
 /* ====================================================================
-   UTILITY FUNCTIONS
-   ==================================================================== */
-// Copy result functionality
-function copyResult() {
-    const output = document.getElementById('output');
-    if (output && output.textContent && output.textContent !== '0') {
-        navigator.clipboard.writeText(output.textContent).then(() => {
-            showNotification('Result copied to clipboard!', 'success');
-        }).catch(() => {
-            showNotification('Failed to copy result', 'error');
-        });
-    }
-}
-
-/* ====================================================================
    WINDOW EVENT HANDLERS
    ==================================================================== */
 // Window resize handler
@@ -822,32 +799,6 @@ document.querySelectorAll('.btn').forEach(btn => {
         }
     });
 });
-
-// Typing effect for hero text (optional enhancement)
-function typeEffect(element, text, speed = 50) {
-    if (!element) return;
-    let i = 0;
-    element.textContent = '';
-    
-    function type() {
-        if (i < text.length) {
-            element.textContent += text.charAt(i);
-            i++;
-            setTimeout(type, speed);
-        }
-    }
-    
-    type();
-}
-
-// Initialize typing effect if on home page
-const heroTitle = document.querySelector('.hero h1');
-if (heroTitle && window.location.pathname.includes('index')) {
-    const originalText = heroTitle.textContent;
-    setTimeout(() => {
-        typeEffect(heroTitle, originalText, 30);
-    }, 500);
-}
 
 // Add particle effect to hero section
 function createParticles() {
@@ -978,44 +929,8 @@ document.querySelectorAll('.stat-number').forEach(stat => {
 });
 
 /* ====================================================================
-   THEME TOGGLE (Optional)
-   ==================================================================== */
-// Add theme toggle functionality
-function toggleTheme() {
-    document.body.classList.toggle('light-theme');
-    const theme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
-    localStorage.setItem('theme', theme);
-}
-
-// Load saved theme preference
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme === 'light') {
-    document.body.classList.add('light-theme');
-}
-
-/* ====================================================================
    PERFORMANCE OPTIMIZATION
    ==================================================================== */
-// Lazy load images
-function lazyLoadImages() {
-    const images = document.querySelectorAll('img[data-src]');
-    
-    const imageObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.removeAttribute('data-src');
-                imageObserver.unobserve(img);
-            }
-        });
-    });
-    
-    images.forEach(img => imageObserver.observe(img));
-}
-
-lazyLoadImages();
-
 // Add smooth page transitions
 document.addEventListener('DOMContentLoaded', function() {
     document.body.style.opacity = '0';
@@ -1546,7 +1461,7 @@ function showWheelResult(prize) {
     resultDiv.style.display = 'block';
     
     addSpinHistory(prize);
-    showNotification(`You won: ${prize}! 🎉`, 'success');
+    showNotification(`winner: ${prize}! 🎉`, 'success');
     
     // Celebration effect for special prizes
     if (prize.toLowerCase().includes('grand') || 
@@ -1986,10 +1901,543 @@ document.addEventListener('DOMContentLoaded', function() {
         updateStopwatchDisplay();
     }
 });
+/* ====================================================================
+   CALCULATOR DISPLAY (NEW CALCULATOR STYLE)
+   ==================================================================== */
+let calcCurrentValue = '0';
+let calcPreviousValue = '';
+let calcOperator = '';
+let calcWaitingForOperand = false;
+
+function appendNumber(num) {
+    const display = document.getElementById('calc-display');
+    if (!display) return;
+    
+    if (calcWaitingForOperand) {
+        calcCurrentValue = num;
+        calcWaitingForOperand = false;
+    } else {
+        if (calcCurrentValue === '0') {
+            calcCurrentValue = num;
+        } else {
+            calcCurrentValue = calcCurrentValue + num;
+        }
+    }
+    
+    updateCalcDisplay();
+}
+
+function setOperator(op) {
+    const display = document.getElementById('calc-display');
+    if (!display) return;
+    
+    if (calcOperator && !calcWaitingForOperand) {
+        calculateResult();
+    }
+    
+    calcPreviousValue = calcCurrentValue;
+    calcOperator = op;
+    calcWaitingForOperand = true;
+    
+    document.getElementById('calc-operation').textContent = `${calcPreviousValue} ${calcOperator}`;
+}
+
+function calculateResult() {
+    const display = document.getElementById('calc-display');
+    if (!display) return;
+    
+    if (!calcOperator || calcWaitingForOperand) return;
+    
+    const prev = parseFloat(calcPreviousValue);
+    const current = parseFloat(calcCurrentValue);
+    
+    let result;
+    switch(calcOperator) {
+        case '+':
+            result = prev + current;
+            break;
+        case '-':
+            result = prev - current;
+            break;
+        case '×':
+            result = prev * current;
+            break;
+        case '÷':
+            if (current === 0) {
+                showNotification('Cannot divide by zero', 'error');
+                clearCalc();
+                return;
+            }
+            result = prev / current;
+            break;
+        default:
+            return;
+    }
+    
+    calcCurrentValue = result.toString();
+    calcOperator = '';
+    calcPreviousValue = '';
+    calcWaitingForOperand = true;
+    
+    document.getElementById('calc-operation').textContent = '';
+    updateCalcDisplay();
+}
+
+function clearCalc() {
+    calcCurrentValue = '0';
+    calcPreviousValue = '';
+    calcOperator = '';
+    calcWaitingForOperand = false;
+    document.getElementById('calc-operation').textContent = '';
+    updateCalcDisplay();
+}
+
+function deleteDigit() {
+    if (calcCurrentValue.length > 1) {
+        calcCurrentValue = calcCurrentValue.slice(0, -1);
+    } else {
+        calcCurrentValue = '0';
+    }
+    updateCalcDisplay();
+}
+
+function updateCalcDisplay() {
+    const display = document.getElementById('calc-display');
+    if (display) {
+        display.textContent = calcCurrentValue;
+    }
+}
+
 
 /* ====================================================================
-   CONSOLE LOG - INITIALIZATION COMPLETE
+   UPDATED TO-DO LIST FUNCTIONS (WITH ARCHIVE SUPPORT)
    ==================================================================== */
-console.log('✨ Modern Portfolio JavaScript loaded successfully!');
-console.log('🎨 Theme: Enhanced Dark with Vibrant Accents');
-console.log('🚀 All features initialized and ready!');
+function addTodoUpdated(event) {
+    event.preventDefault();
+    
+    const input = document.getElementById('todo-input');
+    const text = input.value.trim();
+    
+    if (!text) {
+        showNotification('Please enter a task', 'error');
+        return;
+    }
+    
+    todos.push({
+        id: Date.now(),
+        text: text,
+        completed: false,
+        archived: false,
+        createdAt: new Date().toLocaleString()
+    });
+    
+    input.value = '';
+    displayTodosUpdated();
+    updateTodoStatsUpdated();
+    showNotification('Task added successfully!', 'success');
+}
+
+function displayTodosUpdated() {
+    const listDiv = document.getElementById('todo-list');
+    let filteredTodos = todos;
+    
+    if (currentFilter === 'active') {
+        filteredTodos = todos.filter(t => !t.completed && !t.archived);
+    } else if (currentFilter === 'archived') {
+        filteredTodos = todos.filter(t => t.archived);
+    } else {
+        filteredTodos = todos.filter(t => !t.archived);
+    }
+    
+    if (filteredTodos.length === 0) {
+        listDiv.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 2rem;">No tasks to show</p>';
+        return;
+    }
+    
+    listDiv.innerHTML = filteredTodos.map(todo => `
+        <div class="todo-item ${todo.completed ? 'completed' : ''}">
+            <div class="todo-content">
+                <div class="todo-text">${todo.text}</div>
+            </div>
+            <div class="todo-actions-group">
+                ${!todo.archived ? `<button class="todo-action-btn complete-btn" onclick="completeTodoTask(${todo.id})" title="Complete">${todo.completed ? '✓' : '○'}</button>` : ''}
+                ${!todo.archived ? `<button class="todo-action-btn archive-btn" onclick="archiveTodoTask(${todo.id})" title="Archive">📁</button>` : ''}
+                <button class="todo-action-btn delete-btn" onclick="deleteTodo(${todo.id})" title="Delete">🗑️</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function completeTodoTask(id) {
+    const todo = todos.find(t => t.id === id);
+    if (todo) {
+        todo.completed = !todo.completed;
+        displayTodosUpdated();
+        updateTodoStatsUpdated();
+        showNotification(todo.completed ? 'Task completed! 🎉' : 'Task marked as active', 'success');
+    }
+}
+
+function archiveTodoTask(id) {
+    const todo = todos.find(t => t.id === id);
+    if (todo) {
+        todo.archived = true;
+        displayTodosUpdated();
+        updateTodoStatsUpdated();
+        showNotification('Task archived', 'info');
+    }
+}
+
+function updateTodoStatsUpdated() {
+    const total = todos.filter(t => !t.archived).length;
+    const active = todos.filter(t => !t.completed && !t.archived).length;
+    const archived = todos.filter(t => t.archived).length;
+    
+    document.getElementById('total-tasks').textContent = total;
+    document.getElementById('active-tasks').textContent = active;
+    document.getElementById('archived-tasks').textContent = archived;
+}
+
+// Override the original addTodo function
+if (typeof addTodo !== 'undefined') {
+    addTodo = addTodoUpdated;
+    displayTodos = displayTodosUpdated;
+    updateTodoStats = updateTodoStatsUpdated;
+}
+
+
+/* ====================================================================
+   UPDATED STUDENT MANAGEMENT (WITH VALIDATION)
+   ==================================================================== */
+function addStudentUpdated(event) {
+    event.preventDefault();
+    
+    const id = document.getElementById('student-id').value.trim();
+    const fname = document.getElementById('student-fname').value.trim().toUpperCase();
+    const lname = document.getElementById('student-lname').value.trim().toUpperCase();
+    const mname = document.getElementById('student-mname').value.trim().toUpperCase();
+    const gender = document.getElementById('student-gender').value;
+    const age = parseInt(document.getElementById('student-age').value);
+    const contact = document.getElementById('student-contact').value.trim();
+    const email = document.getElementById('student-email').value.trim().toLowerCase();
+    const course = document.getElementById('student-course').value.trim().toUpperCase();
+    
+    // Validation: Student ID - numbers only
+    if (!/^[0-9]+$/.test(id)) {
+        showNotification('Student ID must contain numbers only', 'error');
+        return;
+    }
+    
+    // Validation: Contact - exactly 11 digits, numbers only
+    if (!/^[0-9]{11}$/.test(contact)) {
+        showNotification('Contact number must be exactly 11 digits', 'error');
+        return;
+    }
+    
+    // Validation: Names - letters only
+    if (!/^[A-Z\s]+$/.test(fname) || !/^[A-Z\s]+$/.test(lname)) {
+        showNotification('Names must contain letters only', 'error');
+        return;
+    }
+    
+    // Validation: Middle initial - single letter only
+    if (mname && !/^[A-Z]$/.test(mname)) {
+        showNotification('Middle initial must be a single letter', 'error');
+        return;
+    }
+    
+    if (!id || !fname || !lname || !gender || !age || !contact || !email || !course) {
+        showNotification('Please fill all required fields correctly', 'error');
+        return;
+    }
+    
+    if (students.some(s => s.id === id && s.uniqueId !== editingStudentId)) {
+        showNotification('Student ID already exists', 'error');
+        return;
+    }
+    
+    if (editingStudentId) {
+        const index = students.findIndex(s => s.uniqueId === editingStudentId);
+        students[index] = { 
+            ...students[index], 
+            id, fname, lname, mname, gender, age, contact, email, course,
+            dateModified: new Date().toLocaleDateString()
+        };
+        editingStudentId = null;
+        showNotification('Student updated successfully', 'success');
+    } else {
+        students.push({
+            uniqueId: Date.now(),
+            id, fname, lname, mname, gender, age, contact, email, course,
+            dateAdded: new Date().toLocaleDateString()
+        });
+        showNotification('Student added successfully', 'success');
+    }
+    
+    document.getElementById('student-form').reset();
+    document.getElementById('form-title').textContent = 'Add New Student';
+    document.getElementById('submit-btn').textContent = 'Add Student';
+    document.getElementById('cancel-btn').style.display = 'none';
+    displayStudents();
+}
+
+// Override the original addStudent function
+if (typeof addStudent !== 'undefined') {
+    addStudent = addStudentUpdated;
+}
+
+
+/* ====================================================================
+   CUSTOM FORM VALIDATION MESSAGES
+   ==================================================================== */
+document.addEventListener('DOMContentLoaded', function() {
+    // Student ID custom validation
+    const studentId = document.getElementById('student-id');
+    if (studentId) {
+        studentId.addEventListener('invalid', function(e) {
+            if (this.validity.patternMismatch) {
+                this.setCustomValidity('Student ID must contain numbers only (e.g., 20240001)');
+            } else if (this.validity.valueMissing) {
+                this.setCustomValidity('Please enter a Student ID');
+            }
+        });
+        
+        studentId.addEventListener('input', function(e) {
+            this.setCustomValidity('');
+        });
+    }
+    
+    // Contact Number custom validation
+    const studentContact = document.getElementById('student-contact');
+    if (studentContact) {
+        studentContact.addEventListener('invalid', function(e) {
+            if (this.validity.patternMismatch) {
+                this.setCustomValidity('Contact number must be exactly 11 digits (e.g., 09123456789)');
+            } else if (this.validity.valueMissing) {
+                this.setCustomValidity('Please enter a contact number');
+            }
+        });
+        
+        studentContact.addEventListener('input', function(e) {
+            this.setCustomValidity('');
+        });
+    }
+    
+    // Middle Initial custom validation
+    const studentMname = document.getElementById('student-mname');
+    if (studentMname) {
+        studentMname.addEventListener('invalid', function(e) {
+            if (this.validity.patternMismatch) {
+                this.setCustomValidity('Middle initial must be a single letter');
+            }
+        });
+        
+        studentMname.addEventListener('input', function(e) {
+            this.setCustomValidity('');
+        });
+    }
+});
+
+
+/* ====================================================================
+                CALCULATOR FUNCTIONS 
+   ==================================================================== */
+let currentValue = '0';
+let previousValue = '';
+let currentOperator = '';
+let shouldResetScreen = false;
+
+function updateDisplay() {
+    const display = document.getElementById('calc-result-main');
+    const expression = document.getElementById('calc-expression');
+    
+    if (!display) return;
+    
+    // Update main display
+    display.textContent = currentValue;
+    
+    // Update expression display
+    if (expression && previousValue && currentOperator) {
+        expression.textContent = `${previousValue} ${currentOperator}`;
+    } else if (expression) {
+        expression.textContent = '';
+    }
+}
+
+function inputNumber(num) {
+    const display = document.getElementById('calc-result-main');
+    if (!display) return;
+    
+    if (currentValue === 'Error') {
+        currentValue = '0';
+    }
+    
+    if (shouldResetScreen) {
+        currentValue = num;
+        shouldResetScreen = false;
+    } else {
+        // Handle decimal point
+        if (num === '.' && currentValue.includes('.')) {
+            return;
+        }
+        
+        if (currentValue === '0' && num !== '.') {
+            currentValue = num;
+        } else {
+            currentValue += num;
+        }
+    }
+    
+    updateDisplay();
+}
+
+function selectOperator(operator) {
+    if (currentValue === 'Error') {
+        clearCalculator();
+        return;
+    }
+    
+    if (previousValue && currentOperator && !shouldResetScreen) {
+        compute();
+    }
+    
+    previousValue = currentValue;
+    currentOperator = operator;
+    shouldResetScreen = true;
+    updateDisplay();
+}
+
+function compute() {
+    if (!previousValue || !currentOperator) return;
+    
+    const prev = parseFloat(previousValue);
+    const current = parseFloat(currentValue);
+    
+    if (isNaN(prev) || isNaN(current)) {
+        currentValue = 'Error';
+        updateDisplay();
+        return;
+    }
+    
+    let result;
+    
+    switch(currentOperator) {
+        case '+':
+            result = prev + current;
+            break;
+        case '-':
+            result = prev - current;
+            break;
+        case '×':
+            result = prev * current;
+            break;
+        case '÷':
+            if (current === 0) {
+                currentValue = 'Error';
+                previousValue = '';
+                currentOperator = '';
+                shouldResetScreen = true;
+                updateDisplay();
+                showNotification('Cannot divide by zero', 'error');
+                return;
+            }
+            result = prev / current;
+            break;
+        default:
+            return;
+    }
+    
+    // Round to avoid floating point issues
+    result = Math.round(result * 1000000000) / 1000000000;
+    
+    currentValue = result.toString();
+    previousValue = '';
+    currentOperator = '';
+    shouldResetScreen = true;
+    updateDisplay();
+}
+
+function clearCalculator() {
+    currentValue = '0';
+    previousValue = '';
+    currentOperator = '';
+    shouldResetScreen = false;
+    updateDisplay();
+}
+
+function backspace() {
+    if (currentValue === 'Error') {
+        clearCalculator();
+        return;
+    }
+    
+    if (shouldResetScreen) {
+        currentValue = '0';
+        shouldResetScreen = false;
+    } else {
+        if (currentValue.length > 1) {
+            currentValue = currentValue.slice(0, -1);
+        } else {
+            currentValue = '0';
+        }
+    }
+    
+    updateDisplay();
+}
+
+function percentage() {
+    if (currentValue === 'Error') {
+        clearCalculator();
+        return;
+    }
+    
+    const num = parseFloat(currentValue);
+    if (isNaN(num)) {
+        currentValue = 'Error';
+        updateDisplay();
+        return;
+    }
+    
+    currentValue = (num / 100).toString();
+    shouldResetScreen = true;
+    updateDisplay();
+}
+
+// Initialize calculator on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const calcDisplay = document.getElementById('calc-result-main');
+    if (calcDisplay) {
+        updateDisplay();
+    }
+});
+
+// Keyboard support for calculator
+document.addEventListener('keydown', function(e) {
+    const calcDisplay = document.getElementById('calc-result-main');
+    if (!calcDisplay) return; // Only work on calculator page
+    
+    if (e.key >= '0' && e.key <= '9') {
+        inputNumber(e.key);
+    } else if (e.key === '.') {
+        inputNumber('.');
+    } else if (e.key === '+') {
+        selectOperator('+');
+    } else if (e.key === '-') {
+        selectOperator('-');
+    } else if (e.key === '*') {
+        selectOperator('×');
+    } else if (e.key === '/') {
+        e.preventDefault();
+        selectOperator('÷');
+    } else if (e.key === 'Enter' || e.key === '=') {
+        e.preventDefault();
+        compute();
+    } else if (e.key === 'Escape' || e.key === 'c' || e.key === 'C') {
+        clearCalculator();
+    } else if (e.key === 'Backspace') {
+        e.preventDefault();
+        backspace();
+    } else if (e.key === '%') {
+        percentage();
+    }
+});
