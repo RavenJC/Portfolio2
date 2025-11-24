@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator - Raven John Climaco</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="profile-pic">R</div>
+                <span>Raven John Climaco</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="skills.html">Skills</a></li>
+                <li><a href="hobbies.html">Hobbies</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- Back Button -->
+            <a href="projects.html" class="back-button">Back to Projects</a>
+
+            <!-- Calculator Title -->
+            <div class="calculator-header">
+                <h1>Simple Calculator</h1>
+                <p>Calculate multiplication and division of two numbers with error handling.</p>
+            </div>
+
+            <!-- Calculator Container -->
+            <div class="calculator-container">
+                <div class="calculator-form">
+                    <div class="form-group">
+                        <label for="simple-num1">First Number:</label>
+                        <input type="number" id="simple-num1" placeholder="Enter first number">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="simple-num2">Second Number:</label>
+                        <input type="number" id="simple-num2" placeholder="Enter second number">
+                    </div>
+                    
+                    <div class="calculator-buttons">
+                        <button onclick="multiplySimple()" class="btn btn-primary">× M998
+                            ultiply</button>
+                        <button onclick="divideSimple()" class="btn btn-primary">÷ Divide</button>
+                    </div>
+                    
+                    <div id="result" class="calculator-result">
+                        <h3>Result:</h3>
+                        <div id="simple-result" class="result-output">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Raven John Climaco. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="mailto:raven@example.com">📧</a>
+                    <a href="https://linkedin.com">💼</a>
+                    <a href="https://github.com">🔗</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

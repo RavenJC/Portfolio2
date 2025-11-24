@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management - Raven John Climaco</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="profile-pic">R</div>
+                <span>Raven John Climaco</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="skills.html">Skills</a></li>
+                <li><a href="hobbies.html">Hobbies</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- Back Button -->
+            <a href="projects.html" class="back-button">Back to Projects</a>
+
+            <!-- Title -->
+            <div class="calculator-header">
+                <h1>Student Management System 📚</h1>
+                <p>Add, edit, and manage student records with complete information and search functionality.</p>
+            </div>
+
+            <!-- Management Container -->
+            <div class="student-management-container">
+                <!-- Add Student Form -->
+                <div class="student-form-card">
+                    <h3 id="form-title">Add New Student</h3>
+                    <form id="student-form" onsubmit="addStudent(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="student-id">Student ID:</label>
+                                <input type="text" id="student-id" placeholder="e.g., 20240001" pattern="[0-9]+" title="Please enter numbers only (no letters or special characters)" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="student-fname">First Name:</label>
+                                <input type="text" id="student-fname" placeholder="FIRST NAME" required style="text-transform: uppercase;">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="student-lname">Last Name:</label>
+                                <input type="text" id="student-lname" placeholder="LAST NAME" required style="text-transform: uppercase;">
+                            </div>
+                            <div class="form-group">
+                                <label for="student-mname">Middle Initial:</label>
+                                <input type="text" id="student-mname" placeholder="M" maxlength="1" pattern="[A-Za-z]" style="text-transform: uppercase;">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="student-gender">Gender:</label>
+                                <select id="student-gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="MALE">MALE</option>
+                                    <option value="FEMALE">FEMALE</option>
+                                    <option value="OTHER">OTHER</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="student-age">Age:</label>
+                                <input type="number" id="student-age" placeholder="Age" min="1" max="100" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="student-contact">Contact Number:</label>
+                                <input type="tel" id="student-contact" placeholder="09XXXXXXXXX" pattern="[0-9]{11}" maxlength="11" title="Please enter exactly 11 digits (e.g., 09123456789)" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="student-email">Email:</label>
+                                <input type="email" id="student-email" placeholder="student@example.com" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="student-course">Course:</label>
+                            <input type="text" id="student-course" placeholder="e.g., BSIT" required style="text-transform: uppercase;">
+                        </div>
+                        <div class="form-button-group">
+                            <button type="submit" class="btn btn-primary" id="submit-btn">Add Student</button>
+                            <button type="button" class="btn btn-outline" onclick="cancelEdit()" id="cancel-btn" style="display: none;">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Search and Filter -->
+                <div class="student-search">
+                    <input type="text" id="search-student" placeholder="Search by name, ID, email, or course..." onkeyup="searchStudents()">
+                </div>
+
+                <!-- Students List -->
+                <div class="students-list-container">
+                    <div class="students-header">
+                        <h3>Student Records</h3>
+                        <span class="student-count" id="student-count">0 students</span>
+                    </div>
+                    <div class="student-table-wrapper">
+                        <table class="student-table" id="student-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Middle Initial</th>
+                                    <th>Gender</th>
+                                    <th>Age</th>
+                                    <th>Contact</th>
+                                    <th>Email</th>
+                                    <th>Course</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="students-list">
+                                <tr>
+                                    <td colspan="10" style="text-align: center; color: var(--text-muted); padding: 3rem;">
+                                        No students added yet
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Raven John Climaco. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="mailto:raven@example.com">📧</a>
+                    <a href="https://linkedin.com">💼</a>
+                    <a href="https://github.com">🔗</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
